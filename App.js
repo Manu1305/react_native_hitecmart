@@ -8,6 +8,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import About from './screens/About';
 import { Font } from 'expo';
 import { Ionicons } from '@expo/vector-icons';
+import Cart from './screens/cart';
 const Stack = createNativeStackNavigator();
 
 
@@ -48,7 +49,7 @@ export default function App() {
         })} >
           <Tab.Screen name="HITECMART" component={HomeScreen} options={{ tabBarLabel: '' }} />
           <Tab.Screen name="About" component={About} options={{ tabBarLabel: '' }} />
-          <Tab.Screen name="cart" component={About} options={{ tabBarLabel: '' }}   />
+          <Tab.Screen name="cart" component={Cart} options={{ tabBarLabel: '' }}   />
           <Tab.Screen name="Wish" component={About} options={{ tabBarLabel: '' }} />
           <Tab.Screen name="user" component={About} options={{ tabBarLabel: '' }} />
         </Tab.Navigator>

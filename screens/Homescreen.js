@@ -1,12 +1,23 @@
-import { View, Text, SafeAreaView, ImageBackground, Image, ScrollView, Button ,Alert, Pressable} from 'react-native'
-import React, { useLayoutEffect, useState, useEffect, Dimensions } from 'react'
-import { useNavigation } from '@react-navigation/native'
-import { StyleSheet } from 'react-native';
-import Swiper from 'react-native-swiper'
-import { useFonts } from 'expo-font';
+import {
+  View,
+  Text,
+  SafeAreaView,
+  ImageBackground,
+  Image,
+  ScrollView,
+  Button,
+  Alert,
+  Pressable,
+  TouchableOpacity,
+  TextInput
+} from "react-native";
+import React, { useLayoutEffect, useState, useEffect, Dimensions } from "react";
+import { useNavigation } from "@react-navigation/native";
+import { StyleSheet } from "react-native";
+import Swiper from "react-native-swiper";
+import { useFonts } from "expo-font";
 import * as Font from "expo-font";
-import { Center } from 'native-base';
-
+import { Center } from "native-base";
 
 const images = [
   { uri: "https://www.linkpicture.com/q/shop4.jpg" },
@@ -15,20 +26,20 @@ const images = [
 ];
 const products = [
   {
-    title: 'Product 1',
-    image: require('../assets/shirt.jpeg'),
-    description: '2000/-'
+    title: "Product 1",
+    image: require("../assets/shirt.jpeg"),
+    description: "2000/-",
   },
   {
-    title: 'Product 2',
-    image: require('../assets/new.jpeg'),
-    description: 'This is product 2.'
+    title: "Product 2",
+    image: require("../assets/new.jpeg"),
+    description: "This is product 2.",
   },
   {
-    title: 'Product 3',
-    image: require('../assets/bn.jpeg'),
-    description: 'This is product 3.'
-  }
+    title: "Product 3",
+    image: require("../assets/bn.jpeg"),
+    description: "This is product 3.",
+  },
 ];
 const garment = [
   {
@@ -47,51 +58,159 @@ const garment = [
     price: "300/-",
   },
 ];
+
+const mens = [
+  {
+    title: "Product 1",
+    image: require("../assets/mens/men.jpg"),
+    price: "200/-",
+  },
+  {
+    title: "Product 2",
+    image: require("../assets/mens/men1.jpg"),
+    price: "200/-",
+  },
+  {
+    title: "Product 3",
+    image: require("../assets/mens/men2.jpg"),
+    price: "300/-",
+  },
+];
+
+const women = [
+  {
+    title: "Product 1",
+    image: require("../assets/women/women.jpg"),
+    price: "200/-",
+  },
+  {
+    title: "Product 2",
+    image: require("../assets/women/women1.jpg"),
+    price: "200/-",
+  },
+  {
+    title: "Product 3",
+    image: require("../assets/women/women2.jpg"),
+    price: "300/-",
+  },
+];
+
+const kids = [
+  {
+    title: "Product 1",
+    image: require("../assets/kids/kid1.jpg"),
+    price: "200/-",
+  },
+  {
+    title: "Product 2",
+    image: require("../assets/kids/kid2.jpg"),
+    price: "200/-",
+  },
+  {
+    title: "Product 3",
+    image: require("../assets/kids/kid3.jpg"),
+    price: "300/-",
+  },
+];
+
 const loadFonts = async () => {
   await Font.loadAsync({
     "Caveat-Regular": require("../assets/fonts/Caveat-Regular.ttf"),
-    
   });
-};  
-
-
+};
 
 const HomeScreen = () => {
-  const navigation = useNavigation()
+  const [cartItems, setCartItems] = useState([]);
 
- const [showProductDetails, setShowProductDetails] = useState(false);
+  const navigation = useNavigation();
+
+  const [showProductDetails, setShowProductDetails] = useState(false);
   const [menswear, setmenswear] = useState(false);
-const [color,setcolor]=useState("black")
-const [colorMen, setcolorMen] = useState("black");
+  const [womenswear, setwomenswear] = useState(false);
+  const [kidswear, setkidswear] = useState(false);
+  const [color, setcolor] = useState("black");
+  const [colorMen, setcolorMen] = useState("black");
+  const [colorWomen, setcolorWomen] = useState("black");
+  const [allproductdisssplay, setallproductdisssplay] = useState("none");
+  const [allproductdisssplaymen, setallproductdisssplaymen] = useState("none");
+  const [allproductdisssplaywomen, setallproductdisssplaywomen] =
+    useState("none");
+  const [allproductdisssplaykids, setallproductdisssplaykids] =
+    useState("none");
+  const [colorkids, setcolorKids] = useState("black");
   const handlePress = () => {
     setShowProductDetails(true);
-  setcolor("red");
-  setcolorMen("black");
-  setmenswear(false);
-}
-   
-  function MenTopWear(){
+    setcolor("red");
+    setcolorMen("black");
+    setmenswear(false);
+    setallproductdisssplay("flex");
+    setcolorWomen("black");
+    setallproductdisssplaymen("none");
+    setallproductdisssplaywomen("none");
+    setcolorKids("black");
+    setallproductdisssplaykids("none");
+    setkidswear("false");
+  };
+
+  function MenTopWear() {
     setShowProductDetails(false);
     setcolor("black");
-    setcolorMen('red')
-    setmenswear(true)
-     setShowProductDetails(false);
-
-
-
+    setcolorMen("red");
+    setmenswear(true);
+    setShowProductDetails(false);
+    setallproductdisssplay("none");
+    setallproductdisssplaymen("flex");
+    setcolorWomen("black");
+    setallproductdisssplaywomen("none");
+    setcolorKids("black");
+    setallproductdisssplaykids("none");
+    setkidswear("false");
   }
-  
+  function womenTopWear() {
+    setShowProductDetails(false);
+    setcolor("black");
+    setcolorMen("black");
+    setcolorWomen("red");
+    setmenswear(false);
+    setShowProductDetails(false);
+    setallproductdisssplay("none");
+    setwomenswear(true);
+    setallproductdisssplaymen("none");
+    setallproductdisssplaywomen("flex");
+    setcolorKids("black");
+    setallproductdisssplaykids("none");
+    setkidswear("false");
+  }
+  function kidsWear() {
+    setShowProductDetails(false);
+    setcolor("black");
+    setcolorMen("black");
+    setcolorWomen("black");
+    setmenswear(false);
+    setShowProductDetails(false);
+    setallproductdisssplay("none");
+    setwomenswear(false);
+    setallproductdisssplaymen("none");
+    setallproductdisssplaywomen("none");
+    setcolorKids("red");
+    setallproductdisssplaykids("flex");
+    setkidswear("true");
+  }
 
-function addTocart(){
-  Alert.alert("Product added to Cart")
-}
+  function addTocart(product) {
+    Alert.alert("Product added to Cart");
+    const newCartItems = [...cartItems, product];
+    setCartItems(newCartItems);
+    console.log(`name is ${product.title}`);
+    console.log(cartItems);
+  }
 
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerShown: true
-    })
-  }, [])
+      headerShown: true,
+    });
+  }, []);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [timer, setTimer] = useState(null);
   const updateIndex = () => {
@@ -116,11 +235,10 @@ function addTocart(){
     return <Text></Text>;
   }
 
- 
   return (
     <ScrollView>
       <SafeAreaView>
-        <View style={{ backgroundColor: "white" }}>
+        <View style={{ backgroundColor: "#EDEADE" }}>
           <View>
             <View style={{ backgroundColor: "red", flex: 1 }}>
               <View style={styles.container}>
@@ -224,7 +342,7 @@ function addTocart(){
               borderRadius: 20,
             }}
           >
-            {garment.map((product, index) => (
+            {products.map((product, index) => (
               <View key={index} style={styles.slide1}>
                 <Text style={styles.text1}>{product.title}</Text>
                 <Image
@@ -237,7 +355,7 @@ function addTocart(){
                   title="Add to cart"
                   color="black"
                   style={{ borderRadius: 12 }}
-                  onPress={addTocart}
+                  onPress={() => addTocart(product)}
                 />
               </View>
             ))}
@@ -556,6 +674,7 @@ function addTocart(){
               justifyContent: "center",
               alignContent: "center",
               marginTop: 10,
+              padding: 20,
             }}
           >
             <Pressable onPress={handlePress}>
@@ -565,20 +684,26 @@ function addTocart(){
             <Pressable onPress={MenTopWear}>
               <Text style={{ color: colorMen }}> Men top wear </Text>
             </Pressable>
-            <Pressable>
-              <Text> Women top wear </Text>
+            <Pressable onPress={womenTopWear}>
+              <Text style={{ color: colorWomen }}> Women top wear </Text>
             </Pressable>
           </View>
-          <Text className="text-center"> Kids Collection </Text>
+          <Pressable onPress={kidsWear}>
+            <Text className="text-center" style={{ color: colorkids }}>
+              {" "}
+              Kids Collection{" "}
+            </Text>
+          </Pressable>
           <Swiper
             style={{
-              backgroundColor: "#white",
+              backgroundColor: "#brown",
               height: 200,
               paddingTop: 150,
               borderRadius: 20,
               paddingBottom: 200,
               alignItems: "center",
               paddingLeft: 150,
+              display: allproductdisssplay,
             }}
           >
             {showProductDetails &&
@@ -587,7 +712,74 @@ function addTocart(){
                   <Text style={styles.text1}>{product.title}</Text>
                   <Image
                     source={product.image}
-                    style={{ width: 100, height: 200, borderRadius: 10 }}
+                    style={{
+                      width: 100,
+                      height: 200,
+                      borderRadius: 10,
+                      marginTop: 70,
+                    }}
+                  ></Image>
+
+                  <Text style={styles.text2}>{product.price}</Text>
+                </View>
+              ))}
+          </Swiper>
+
+          <Swiper
+            style={{
+              backgroundColor: "#yellow",
+              height: 200,
+              paddingTop: 150,
+              borderRadius: 20,
+              paddingBottom: 200,
+              alignItems: "center",
+              paddingLeft: 150,
+              display: allproductdisssplaymen,
+            }}
+          >
+            {menswear &&
+              mens.map((product, index) => (
+                <View key={index} style={{ marginBottom: 30 }}>
+                  <Text style={styles.text1}>{product.title}</Text>
+                  <Image
+                    source={product.image}
+                    style={{
+                      width: 100,
+                      height: 200,
+                      borderRadius: 10,
+                      marginTop: 70,
+                    }}
+                  ></Image>
+
+                  <Text style={styles.text2}>{product.price}</Text>
+                </View>
+              ))}
+          </Swiper>
+
+          <Swiper
+            style={{
+              backgroundColor: "#lime",
+              height: 200,
+              paddingTop: 150,
+              borderRadius: 20,
+              paddingBottom: 200,
+              alignItems: "center",
+              paddingLeft: 150,
+              display: allproductdisssplaywomen,
+            }}
+          >
+            {womenswear &&
+              women.map((product, index) => (
+                <View key={index} style={{ marginBottom: 30 }}>
+                  <Text style={styles.text1}>{product.title}</Text>
+                  <Image
+                    source={product.image}
+                    style={{
+                      width: 100,
+                      height: 200,
+                      borderRadius: 10,
+                      marginTop: 70,
+                    }}
                   ></Image>
 
                   <Text style={styles.text2}>{product.price}</Text>
@@ -604,33 +796,348 @@ function addTocart(){
               paddingBottom: 200,
               alignItems: "center",
               paddingLeft: 150,
+              display: allproductdisssplaykids,
             }}
           >
-            {menswear &&
-              garment.map((product, index) => (
+            {kidswear &&
+              kids.map((product, index) => (
                 <View key={index} style={{ marginBottom: 30 }}>
                   <Text style={styles.text1}>{product.title}</Text>
                   <Image
                     source={product.image}
-                    style={{ width: 100, height: 200, borderRadius: 10 }}
+                    style={{
+                      width: 100,
+                      height: 200,
+                      borderRadius: 10,
+                      marginTop: 70,
+                    }}
                   ></Image>
 
                   <Text style={styles.text2}>{product.price}</Text>
                 </View>
               ))}
           </Swiper>
+
+          <Text
+            className="text-center"
+            style={{
+              fontSize: 17,
+              marginTop: 10,
+              color: "#FDB750",
+              fontWeight: "bold",
+            }}
+          >
+            {" "}
+            Discover thousands of other quality products
+          </Text>
+
+          <Text
+            className="text-center mt-9"
+            style={{ color: "green", fontSize: 19 }}
+          >
+            Shop all products >>
+          </Text>
+
+          <View>
+            <ImageBackground
+              source={require("../assets/background/offerbanner.jpg")}
+              style={{ width: "100%", height: 300 }}
+            >
+              <Text
+                style={{
+                  fontFamily: "Caveat-Regular",
+                  marginTop: 30,
+                  marginLeft: 10,
+                  color: "white",
+                }}
+              >
+                ~HiTec Mart~
+              </Text>
+
+              <Text
+                style={{
+                  marginTop: 30,
+                  marginLeft: 10,
+                  color: "white",
+                  fontWeight: "bold",
+                }}
+              >
+                HiTec Mart is one of the unique online {"\n"} shopping sites in
+                India where fashion is {"\n"} accessible to all.
+                {"\n"} {"\n"}
+                {"\n"} {"\n"}
+                HURRY UP! OFFER END IN: The event{"\n"}has ended{"\n"}
+                {"\n"}The event has ended{" "}
+              </Text>
+              <View
+                style={{
+                  width: 200,
+                  borderRadius: 20,
+                  backgroundColor: "white",
+                }}
+              ></View>
+            </ImageBackground>
+
+            <Text
+              className="text-center"
+              style={{ fontFamily: "Caveat-Regular", marginTop: 10 }}
+            >
+              Read Our Blog
+            </Text>
+            <Text
+              className="text-center"
+              style={{ color: "blue", fontSize: 20, marginTop: 10 }}
+            >
+              OUR LATEST POST
+            </Text>
+            <Text
+              style={{ margin: 10, justifyContent: "space-between" }}
+              className="text-center"
+            >
+              Be it clothing, footwear or accessories, HiTec Mart offers you the
+              ideal combination of fashion and functionality for men, women and
+              kids.
+            </Text>
+          </View>
+          <Image
+            source={{
+              uri: "https://hitecmart.com/wp-content/uploads/2023/03/b9.jpeg",
+            }}
+            style={{ width: "100%", height: 300 }}
+          />
+          <Text style={{ color: "green", marginTop: 10 }}>
+            BUSSINESS{" "}
+            <Text style={{ color: "black" }}>
+              CHANDAN KUMAR . 16.March.2023
+            </Text>
+          </Text>
+          <Text style={{ marginTop: 10, fontWeight: "bold", color: "blue" }}>
+            How to optimise Your B2B Garments {"\n"} marketplace Profile for
+            Better RResults
+          </Text>
+
+          <Text style={{ marginTop: 10 }}>
+            Meta description:Are you struggling to get leads from {"\n"} your
+            B2B garments marketplace profile ? Read this article {"\n"} to learn
+            how ...
+          </Text>
+
+          <Text style={{ marginTop: 10, color: "green", fontWeight: "700" }}>
+            CONTINUE READING
+          </Text>
+
+          <View
+            style={{
+              width: "100%",
+              height: 400,
+              backgroundColor: "steelblue",
+              alignItems: "center",
+              padding: 50,
+            }}
+          >
+            <View style={{ flexDirection: "column", marginBottom: 10 }}>
+              <View style={{ flexDirection: "row" }}>
+                <View
+                  style={{
+                    width: 150,
+                    height: 130,
+                    backgroundColor: "#888888",
+                    margin: 20,
+                  }}
+                >
+                  <Text
+                    style={{ color: "white", marginTop: 20, marginLeft: 5 }}
+                  >
+                    {" "}
+                    FAST DELIVERY
+                  </Text>
+                  <Text
+                    style={{
+                      color: "white",
+                      marginTop: 50,
+                      marginLeft: 5,
+                      color: "white",
+                    }}
+                  >
+                    Across west and east
+                  </Text>
+                </View>
+
+                <View
+                  style={{
+                    width: 150,
+                    height: 130,
+                    backgroundColor: "#888888",
+                    margin: 20,
+                  }}
+                >
+                  <Text
+                    style={{ color: "white", marginTop: 20, marginLeft: 5 }}
+                  >
+                    {" "}
+                    SAFE PAYMENT
+                  </Text>
+                  <Text
+                    style={{
+                      color: "white",
+                      marginTop: 50,
+                      marginLeft: 5,
+                      color: "black",
+                    }}
+                  >
+                    Across west and east
+                  </Text>
+                </View>
+              </View>
+              <View style={{ flexDirection: "row" }}>
+                <View
+                  style={{
+                    width: 150,
+                    height: 130,
+                    backgroundColor: "#888888",
+                    margin: 20,
+                  }}
+                >
+                  <Text
+                    style={{ color: "white", marginTop: 20, marginLeft: 5 }}
+                  >
+                    {" "}
+                    ONLINE DISCOUNT
+                  </Text>
+                  <Text
+                    style={{
+                      color: "white",
+                      marginTop: 50,
+                      marginLeft: 5,
+                      color: "black",
+                    }}
+                  >
+                    Across west and east
+                  </Text>
+                </View>
+                <View
+                  style={{
+                    width: 150,
+                    height: 130,
+                    backgroundColor: "#888888",
+                    margin: 20,
+                  }}
+                >
+                  <Text
+                    style={{ color: "white", marginTop: 20, marginLeft: 5 }}
+                  >
+                    {" "}
+                    HELP CENTRE
+                  </Text>
+                  <Text
+                    style={{
+                      color: "white",
+                      marginTop: 50,
+                      marginLeft: 5,
+                      color: "black",
+                    }}
+                  >
+                    Across west and east
+                  </Text>
+                </View>
+              </View>
+            </View>
+          </View>
+
+          <View
+            style={{
+              borderBottomColor: 'black',
+              alignSelf: 'stretch'
+            }}
+          />
+          <View
+            style={{
+              borderBottomColor: 'black',
+              alignSelf: 'stretch'
+            }}
+          />
+          <View
+            style={{
+              width: "100%",
+              height: 800,
+              backgroundColor: "steelblue",
+              alignItems: "center",
+
+            }}
+          >
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <View style={{ flex: 1, height: 1, backgroundColor: 'white' }} />
+              <View>
+
+              </View>
+              <View style={{ flex: 1, height: 1, backgroundColor: 'white' }} />
+            </View>
+            <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 20 }}>
+              <View style={{ flex: 1, height: 1, backgroundColor: 'white' }} />
+              <View>
+
+              </View>
+              <View style={{ flex: 1, height: 1, backgroundColor: 'white' }} />
+            </View>
+            <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 20 }}>
+              <View style={{ flex: 1, height: 1, backgroundColor: 'white' }} />
+              <View>
+
+              </View>
+              <View style={{ flex: 1, height: 1, backgroundColor: 'white' }} />
+            </View>
+            <Text style={{ marginLeft: 0, color: 'white' }}>
+              <Text style={{ fontWeight: 'bold' }}> LET US HELP YOU </Text> {'\n'} {'\n'}If you have any question,{'\n'}{'\n'}please contact us at:support@hitecmart.com
+              {'\n'}Social Media :
+            </Text>
+
+            <Text style={{ marginLeft: 0, color: 'white', marginTop: 20 }}>
+              <Text style={{ fontWeight: 'bold', marginTop: 20 }}> LOOKING FOR HITECMART </Text> {'\n'} {'\n'}2nd Floor, 91springboard Mahadevpura ORR{'\n'}{'\n'}Bangalore – 560048
+              Monday – Friday: 9:30 AM – 6:30 PM{'\n'}
+
+              Saturday: 9:30 AM – 06:30 PM{'\n'}
+
+              Sunday: Close
+            </Text>
+            <Text style={{ marginLeft: 0, color: 'white', marginTop: 20 }}>
+
+              <Text style={{ marginLeft: -10, color: 'white' }}>
+                <Text style={{ fontWeight: 'bold', marginTop: 20 }}>BEST ONLINE SHOPPING SITE </Text> {'\n'} {'\n'}Smart men’s clothing{'\n'}
+                Trendy women’s clothing{'\n'}
+                Kids Clothing{'\n'}
+                Shop{'\n'}
+                Stylish Accessories{'\n'}
+                Privacy Policy{'\n'}
+                Return & Refund Policy{'\n'}
+                Disclaimer
+
+              </Text>
+            </Text>
+            <Text style={{ marginLeft: 0, color: 'white', marginTop: 20 }}>
+              <Text style={{ fontWeight: 'bold', }}>OUR NEWSLETTER
+              </Text> {'\n'} {'\n'}Subscribe to the Hitecmart mailing list to receive updates{'\n'}
+              on new arrivals & other information.
+
+            </Text>
+            <TouchableOpacity style={styles.button}>
+              <TextInput style={{ backgroundColor: "white" }} placeholder="Enter your email here!" ></TextInput>
+              <Text style={styles.title}>Subscribe</Text>
+            </TouchableOpacity>
+
+          </View>
+
         </View>
+
       </SafeAreaView>
     </ScrollView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     position: "relative",
     overflow: "hidden",
     height: 500,
-   
   },
   background: {
     flex: 1,
@@ -657,7 +1164,7 @@ const styles = StyleSheet.create({
     marginBottom: 400,
     height: 200,
     borderRadius: 200,
-    padding: 10, 
+    padding: 10,
     position: "relative",
   },
   text1: {
@@ -667,10 +1174,23 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     color: "white",
   },
-  special:{
-    fontFamily:"Caveat-Regular" ,fontSize:30
-  }
+  special: {
+    fontFamily: "Caveat-Regular",
+    fontSize: 30,
+  },
+  button: {
+    backgroundColor: 'green',
+    paddingVertical: 12,
+    paddingHorizontal: 30,
+    borderRadius: 5,
+  },
+  title: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+
 });
 
-
-export default HomeScreen
+export default HomeScreen;
