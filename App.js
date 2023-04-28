@@ -8,9 +8,9 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import About from './screens/About';
 import { Font } from 'expo';
 import { Ionicons } from '@expo/vector-icons';
-import Cart from './screens/cart';
+import CartScreen from './screens/cart';
 const Stack = createNativeStackNavigator();
-
+import { createContext } from 'react';
 
 const Tab = createBottomTabNavigator();
 export default function App() {
@@ -44,12 +44,12 @@ export default function App() {
             // You can return any component that you like here!
             return <Ionicons name={iconName} size={size} color={color} />;
           },
-          tabBarActiveTintColor: 'tomato',
-          tabBarInactiveTintColor: 'tomato',
-        })} >
+          tabBarActiveTintColor: 'orange',
+          tabBarInactiveTintColor: 'green',
+        })} > 
           <Tab.Screen name="HITECMART" component={HomeScreen} options={{ tabBarLabel: '' }} />
           <Tab.Screen name="About" component={About} options={{ tabBarLabel: '' }} />
-          <Tab.Screen name="cart" component={Cart} options={{ tabBarLabel: '' }}   />
+          <Tab.Screen name="cart" component={CartScreen} options={{ tabBarLabel: '' }}   />
           <Tab.Screen name="Wish" component={About} options={{ tabBarLabel: '' }} />
           <Tab.Screen name="user" component={About} options={{ tabBarLabel: '' }} />
         </Tab.Navigator>

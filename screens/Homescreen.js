@@ -18,6 +18,8 @@ import Swiper from "react-native-swiper";
 import { useFonts } from "expo-font";
 import * as Font from "expo-font";
 import { Center } from "native-base";
+import { DataContext } from "../DataContext";
+
 
 const images = [
   { uri: "https://www.linkpicture.com/q/shop4.jpg" },
@@ -116,13 +118,16 @@ const kids = [
 const loadFonts = async () => {
   await Font.loadAsync({
     "Caveat-Regular": require("../assets/fonts/Caveat-Regular.ttf"),
-  });
+  }); 
 };
 
 const HomeScreen = () => {
   const [cartItems, setCartItems] = useState([]);
 
   const navigation = useNavigation();
+  useEffect(() => {
+    console.log(cartItems);
+  }, [cartItems]);
 
   const [showProductDetails, setShowProductDetails] = useState(false);
   const [menswear, setmenswear] = useState(false);
@@ -199,10 +204,11 @@ const HomeScreen = () => {
 
   function addTocart(product) {
     Alert.alert("Product added to Cart");
-    const newCartItems = [...cartItems, product];
+    const newCartItems = [ product];
     setCartItems(newCartItems);
     console.log(`name is ${product.title}`);
     console.log(cartItems);
+    
   }
 
 
@@ -236,6 +242,8 @@ const HomeScreen = () => {
   }
 
   return (
+    <DataContext.Provider value={cartItems}>
+
     <ScrollView>
       <SafeAreaView>
         <View style={{ backgroundColor: "#EDEADE" }}>
@@ -1130,6 +1138,7 @@ const HomeScreen = () => {
 
       </SafeAreaView>
     </ScrollView>
+    </DataContext.Provider>
   );
 };
 
